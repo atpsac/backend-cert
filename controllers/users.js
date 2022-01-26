@@ -18,13 +18,14 @@ const usersGet = async (req = request, res = response) => {
 const usersPut = async (req = request, res = response) => {
 
     const {id} = req.params;
-    const data = req.body;
-    console.log(data);
+    const {userName, email, password, phoneNumber, updateUser} = req.body;
 
-    const result = await db.query();
+    const sql = `CALL Sp_UserUpdate(?, ?, ?, ?, ?, ?);`;
+    const result = await db.query(sql, [id, userName, email, password, phoneNumber, updateUser]);
 
-    res.json({
-        data
+    return res.status(200).json({
+        msg: 'Updated Row',
+        result
     });
 
 };
