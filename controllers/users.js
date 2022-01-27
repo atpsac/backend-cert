@@ -4,21 +4,27 @@ const bcryptjs = require('bcryptjs');
 
 const usersGet = async (req = request, res = response) => {
 
-    const sql = 'SELECT * FROM USER';
-    const data = await db.query(sql);
-    console.log(data);
+    const sql = 'SELECT * FROM USER LIMIT 2';
+    try {
+        const result = await db.query(sql);
+        console.log(result);
+        res.json({
+            result
+        });
+        // console.log(fields);
+    } catch (e) {
+        console.log(e);
+    }
 
     //const { q, name = 'No name', apikey, page = 1, limit } = req.query;
 
-    res.json({
-        data
-    });
+    
 }
 
 const usersPut = async (req = request, res = response) => {
 
-    const {id} = req.params;
-    const {userName, email, password, phoneNumber, updateUser} = req.body;
+    const { id } = req.params;
+    const { userName, email, password, phoneNumber, updateUser } = req.body;
 
     const sql = `CALL Sp_UserUpdate(?, ?, ?, ?, ?, ?);`;
     const result = await db.query(sql, [id, userName, email, password, phoneNumber, updateUser]);

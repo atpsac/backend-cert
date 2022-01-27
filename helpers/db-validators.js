@@ -17,7 +17,17 @@ const isEmailValid = async(email = '') => {
     }
 };
 
+const isIdValid = async(id = 0) => {
+    const idValidatorSql = `SELECT USERID, USERNAME FROM USER WHERE USERID = ${id};`;
+    const idExist = await db.query(idValidatorSql);
+    if (Object.keys(idExist).length == 0) {
+        console.log(Object.keys(idExist).length);
+        throw new Error(`Id ${id} is not valid`);
+    }
+};
+
 module.exports = {
     isRoleValid,
-    isEmailValid
+    isEmailValid,
+    isIdValid
 };
