@@ -4,7 +4,7 @@ const bcryptjs = require('bcryptjs');
 
 const usersGet = async (req = request, res = response) => {
 
-    const sql = 'SELECT * FROM USER LIMIT 2';
+    const sql = 'SELECT * FROM user LIMIT 2';
     try {
         const result = await db.query(sql);
         console.log(result);

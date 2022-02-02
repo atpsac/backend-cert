@@ -2,7 +2,8 @@ const env = process.env;
 
 const config = {
   db: { /* do not put password or any sensitive info here, done only for demo */
-    host: 'localhost',
+    // host: 'localhost',
+    host: '107.180.6.39',
     user: 'atp_user',
     password: 'Am4z0n4s*',
     database: 'atp-cer',
