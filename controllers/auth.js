@@ -1,6 +1,6 @@
 const { response } = require('express');
 const db = require('../database/db');
-const { generateJwt } = require('../helpers/generate-Jwt');
+const { generateJwt } = require('../helpers/generate-jwt');
 
 const login = async (req, res = response) => {
 

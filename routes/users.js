@@ -4,11 +4,16 @@ const { check } = require('express-validator');
 
 const { usersGet, usersPost, usersPut } = require('../controllers/users');
 const { isRoleValid, isEmailValid, isIdValid } = require('../helpers/db-validators');
+
 const { fieldValidators } = require('../middlewares/fields-validators');
+const { validateAccessByJwt } = require('../middlewares/validate-access-jwt');
 
 const router = Router();
 
-router.get('/', usersGet);
+router.get('/',
+        [
+                validateAccessByJwt
+        ], usersGet);
 
 router.put('/:id',
         [
