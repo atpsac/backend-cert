@@ -8,8 +8,8 @@ const router = Router();
 
 router.post('/login',
     [
-        check('UserName', 'Username is required').not().isEmpty(),
-        check('Password', 'Password is required').not().isEmpty(),
+        check('userName', 'Username is required').not().isEmpty(),
+        check('password', 'Password is required').not().isEmpty(),
         // check('UserName').custom((userName) => isUserNameValid(userName)),
         fieldValidators
     ]
