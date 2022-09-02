@@ -1,10 +1,11 @@
 const { response, request } = require('express');
 const db = require('../database/db');
 const bcryptjs = require('bcryptjs');
+const usersList = require('../sql/users');
 
 const usersGet = async (req = request, res = response) => {
 
-    const sql = 'SELECT * FROM User LIMIT 2';
+    const sql = usersList;
     try {
         const result = await db.query(sql);
         console.log(result);

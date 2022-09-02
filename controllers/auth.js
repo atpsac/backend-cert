@@ -1,6 +1,7 @@
 const { response } = require('express');
+const bcryptjs = require('bcryptjs');
 const db = require('../database/db');
-const { generateJwt } = require('../helpers/generatejwt');
+const { generateJwt } = require('../helpers/generate-Jwt');
 
 const login = async (req, res = response) => {
 
@@ -17,18 +18,18 @@ const login = async (req, res = response) => {
             });
         }
         const [dataResult] = result;
-        const { UserId: userId, PasswordHash: passwordHash, Situation_SituationId: situationId } = dataResult;
+        const { UserId: userId, Password: passwordHash, Situation: situation } = dataResult;
         // Active user only
-        if (situationId != 1) {
+        if (situation != 1) {
             return res.status(400).json({
                 msg: 'User/Password is not valid - Situation'
             });
         }
         // Password id valid
 
-        // const validPassword = bcryptjs.compareSync(password, passwordHash);
+        const validPassword = bcryptjs.compareSync(password, passwordHash);
 
-        if (password !== passwordHash) {
+        if (!validPassword) {
             return res.status(400).json({
                 msg: 'User/Password is not valid - Password'
             });
