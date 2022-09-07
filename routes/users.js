@@ -3,27 +3,32 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { usersGet, usersPost, usersPut } = require('../controllers/users');
-const { isRoleValid, isEmailValid, isIdValid } = require('../helpers/db-validators');
-const { fieldValidators } = require('../middlewares/fields-validators');
+const { isRoleValid, isEmailValid, isIdValid, isUserNameValid } = require('../helpers/db-validator');
+const { fieldValidator } = require('../middlewares/fields-validator');
+const { jwtValidate } = require('../middlewares/jwt-validator');
 
 const router = Router();
 
-router.get('/', usersGet);
+router.get('/',
+        [
+                jwtValidate
+        ],
+        usersGet);
 
 router.put('/:id',
         [
                 check('id').custom((id) => isIdValid(id)),
-                fieldValidators
+                fieldValidator
         ], usersPut);
 
 router.post('/',
         [
-                check('user', 'User is mandatory').not().isEmpty(),
-                check('password', 'Password is not valid').isLength({ min: 6 }),
-                check('email', 'Email no valid').isEmail(),
-                check('email').custom((email) => isEmailValid(email)),
-                check('role').custom((role) => isRoleValid(role)),
-                fieldValidators
+                jwtValidate,
+                check('username', 'User es mandatorio').not().isEmpty(),
+                check('username').custom(isUserNameValid),
+                check('password', 'Password no es válido').isLength({ min: 6 }),
+                // check('role').custom((role) => isRoleValid(role)),
+                fieldValidator
         ], usersPost);
 
 // router.delete('/', usuariosDelete );

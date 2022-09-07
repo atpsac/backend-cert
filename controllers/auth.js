@@ -5,7 +5,7 @@ const { generateJwt } = require('../helpers/generate-Jwt');
 
 const login = async (req, res = response) => {
 
-    const { userName, password } = req.body;
+    const { username: userName, password } = req.body;
 
     try {
         // Verify if username is exist
@@ -14,7 +14,7 @@ const login = async (req, res = response) => {
 
         if (Object.keys(result).length == 0) {
             return res.status(400).json({
-                msg: 'User/Password is not valid - Username'
+                msg: 'User/Password no es válido - Username'
             });
         }
         const [dataResult] = result;
@@ -22,7 +22,7 @@ const login = async (req, res = response) => {
         // Active user only
         if (situation != 1) {
             return res.status(400).json({
-                msg: 'User/Password is not valid - Situation'
+                msg: 'User/Password no es válido - Situation'
             });
         }
         // Password id valid
@@ -31,7 +31,7 @@ const login = async (req, res = response) => {
 
         if (!validPassword) {
             return res.status(400).json({
-                msg: 'User/Password is not valid - Password'
+                msg: 'User/Password no es válido - Password'
             });
         }
 
@@ -49,7 +49,7 @@ const login = async (req, res = response) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            msg: 'Login error'
+            msg: 'Error en Login'
         })
     }
 

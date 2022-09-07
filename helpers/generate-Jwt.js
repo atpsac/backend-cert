@@ -8,7 +8,7 @@ const generateJwt = (uid = '') => {
         }, (err, token) => {
             if (err) {
                 console.log(err);
-                reject('Token not generated');
+                reject('Token no generado');
             } else {
                 resolve(token);
             }
