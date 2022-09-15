@@ -1,7 +1,7 @@
 const { response } = require('express');
 const bcryptjs = require('bcryptjs');
 const db = require('../database/db');
-const { generateJwt } = require('../helpers/generate-Jwt');
+const { generateJwt } = require('../helpers/jwt-generator');
 
 const login = async (req, res = response) => {
 
@@ -47,9 +47,9 @@ const login = async (req, res = response) => {
         });
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
-            msg: 'Error en Login'
+            msg: 'Error en Login',
+            error
         })
     }
 
